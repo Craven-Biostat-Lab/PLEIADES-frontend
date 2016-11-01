@@ -86,7 +86,7 @@ export class DatumEditService {
         // Only submit if the user has made some edits.
         if (this.anyChanges()) {
     
-            let url = '/datums';
+            let url = 'v1/datums';
             let headers = new Headers({'Content-Type': 'application/json'});
         
             // Convert datumsWithEdits to an array, get rid of dictionary keys
