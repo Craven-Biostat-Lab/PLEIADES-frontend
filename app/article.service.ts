@@ -14,7 +14,7 @@ import { Article } from './article';
 export class ArticleService {
 
     // URL to the resource on the back-end that responds with a list of articles
-    private articleUrl = 'v1/articles';
+    private articleUrl = '/api/v01/articles';
 
     constructor(private http: Http) {}
 
