@@ -20,6 +20,10 @@ font-size: 100px;">
             </div>
             <div class="col-md-3 button-col">
                 <button class="btn btn-edit">Edit datums</button>
+                <div class="article-timestamp" *ngIf="article.lastUpdated">
+                    Last edited: <br>
+                    {{ formatTimestamp(article.lastUpdated) }}
+                </div>
             </div>
         </div>
     </div>

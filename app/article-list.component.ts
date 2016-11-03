@@ -30,4 +30,10 @@ export class ArticleListComponent implements OnInit {
     gotoArticle(article: Article) {
         this.router.navigate(['/article-datums', article.PMCID]);
     }
+    
+    
+    formatTimestamp(timestamp: number): string {
+        let date = new Date(timestamp);
+        return date.toLocaleString();
+    }
 }

@@ -31,7 +31,7 @@
 }
 
 .button-col {
-    text-align: right;
+    text-align: center;
 }
 
 .article-row .btn.btn-edit {
@@ -44,4 +44,10 @@
     background-color: #178AAE;
     border: 0;
     transition: 0.1s;
+}
+
+.article-timestamp {
+    font-size: 90%;
+    color: #777;
+    padding-top: 12px;
 }

@@ -6,4 +6,5 @@ export class Article {
     PMCID: string;
     PMID: string;
     treatmentEntities: TreatmentEntity[];
+    lastUpdated: number;
 }
