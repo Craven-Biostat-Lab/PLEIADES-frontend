@@ -1,4 +1,20 @@
-// This component shows the article text and the list of datums for a single article, and allows the user to select a datum to hilight.
+/*
+This component shows the user a list of datums for the selected article,
+and allows the user to select a datum.  It also includes the UI buttons
+for submitting, and toggling add/remove hilights.  The selected article 
+is identified from the URL path.
+
+This component includes the article-text component as a child.
+
+The current state of the UI for this page, including the selected datum
+and add/remove hilight mode, is communicated asynchronously with the 
+article-text component via the datum-edit service, instead of directly
+made an attribute of the article-text component.  This is to prevent a bug
+where the iframe reloads every time a new datum is selected.
+
+See https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#bidirectional-service
+*/
+
 
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
@@ -18,6 +34,7 @@ import { DatumEditService } from './datum-edit.service';
     providers: [ DatumEditService ],
 })
 export class ArticleDatumsComponent implements OnInit {
+
 
     // Currently selected article
     article: Article;
@@ -74,13 +91,13 @@ export class ArticleDatumsComponent implements OnInit {
     
     goBack(): void{
         if(!this.datumEditService.anyChanges() || confirm('Exit without saving your changes?')) {
-            this.router.navigate(['/']);
+            this.location.back();
         }
     }
     
     
     submit(): void{
         this.datumEditService.submitEdits(this.article);
-        this.router.navigate(['/']);
+        this.location.back();
     }
 }

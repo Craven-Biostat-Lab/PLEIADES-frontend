@@ -1,3 +1,8 @@
+/*
+This file defines routes for the application, each URL route is
+mapped to a component.
+*/
+
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

@@ -1,4 +1,7 @@
-// This file handles communication with the back-end to retrieve articles
+/*
+This file handles communication with the back-end to retrieve a list
+of articles, and retrieve info+datums for a single article.
+*/
 
 
 import { Injectable } from '@angular/core';
@@ -17,6 +20,7 @@ export class ArticleService {
     private articleUrl = '/api/v01/articles';
 
     constructor(private http: Http) {}
+
 
     // Return a list of articles from the back-end
     getArticles(): Promise<Article[]> {
