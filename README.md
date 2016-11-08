@@ -26,13 +26,13 @@ Structure
 The angular app (in the 'app' folder) consists of the following pieces:
 
 Modules:
-AppModule: The only module for this app, just loads the AppComponenet.  When you create new components or providers, you have to add them to this .ts file.
+- AppModule: The only module for this app, just loads the AppComponenet.  When you create new components or providers, you have to add them to this .ts file.
 
 Components:
 - AppComponent: loads the app, and includes the router, doesn't do much else.
--- ArticleListComponent: The front page of the app, lists articles for the user to edit.
--- ArticleDatumsComponent: For one article, show the datums and let the user select a datum to edit.
---- ArticleTextComponent: Shows the article text in an iframe, and handles interaction with TextHighlighter.js.
+    - ArticleListComponent: The front page of the app, lists articles for the user to edit.
+    - ArticleDatumsComponent: For one article, show the datums and let the user select a datum to edit.
+        - ArticleTextComponent: Shows the article text in an iframe, and handles interaction with TextHighlighter.js.
 
 Services:
 - ArticleService: Fetches articles and datums from the back-end.
