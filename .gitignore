@@ -14,6 +14,9 @@ e2e/**/*.js.map
 _test-output
 _temp
 
+articles
+npm-debug.log
+
 !karma*.js
 !protractor*.js
 !systemjs.config.js
