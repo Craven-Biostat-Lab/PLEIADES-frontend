@@ -71,3 +71,8 @@
     border: 0;
     transition: 0.1s;
 }
+
+#page-count-row {
+    text-align: center;
+    color: #888;
+}

@@ -28,6 +28,9 @@ export class ArticleListComponent implements OnInit {
     // The currently-shown page of results.
     page: number;
 
+    // Total number of pages in the database;
+    numPages: number;
+
     // The number of articles to show on each page.
     private articlesPerPage = 10;
 
@@ -45,7 +48,13 @@ export class ArticleListComponent implements OnInit {
         let limit: number = this.articlesPerPage;
         let skip: number = page * this.articlesPerPage;
 
-        this.articleService.getArticles(limit, skip).then(articles => this.articles = articles);
+        // Fetch the articles from the server, and when they come back,
+        // store the articles and computer the number of pages. 
+        this.articleService.getArticles(limit, skip).then(
+            result => {
+                this.articles = result.articles as Article[];
+                this.numPages = Math.ceil(result.articleCount / this.articlesPerPage);
+            });
     }
     
     

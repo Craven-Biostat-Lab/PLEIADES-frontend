@@ -23,7 +23,7 @@ export class ArticleService {
 
 
     // Return a list of articles from the back-end
-    getArticles(limit: number, skip: number): Promise<Article[]> {
+    getArticles(limit: number, skip: number): Promise<any> {
 
         let params = new URLSearchParams();
         params.set('limit', limit.toString());
@@ -31,7 +31,14 @@ export class ArticleService {
 
         return this.http.get(this.articleUrl, {search:params})
             .toPromise()
-            .then(response => response.json().articles as Article[])
+            .then(
+                response => {
+                    return {                    
+                        articles: response.json().articles as Article[],
+                        articleCount: response.json().articleCount
+                    };
+                }
+            )
             .catch(this.handleError);
     }
     
