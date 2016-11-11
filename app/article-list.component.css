@@ -31,7 +31,7 @@
 }
 
 .button-col {
-    text-align: right;
+    text-align: center;
 }
 
 .article-row .btn.btn-edit {
@@ -44,4 +44,35 @@
     background-color: #178AAE;
     border: 0;
     transition: 0.1s;
+}
+
+.article-timestamp {
+    font-size: 90%;
+    color: #777;
+    padding-top: 12px;
+}
+
+
+#next-back-row {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.btn-prev-page, .btn-next-page {
+    color: #fff;
+    background-color: #21A5E6;
+    border: 0;
+    min-width: 140px;
+    cursor: pointer;
+}
+
+.btn-prev-page:hover, .btn-next-page:hover {
+    background-color: #178AAE;
+    border: 0;
+    transition: 0.1s;
+}
+
+#page-count-row {
+    text-align: center;
+    color: #888;
 }

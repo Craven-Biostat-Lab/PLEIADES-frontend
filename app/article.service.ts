@@ -1,8 +1,11 @@
-// This file handles communication with the back-end to retrieve articles
+/*
+This file handles communication with the back-end to retrieve a list
+of articles, and retrieve info+datums for a single article.
+*/
 
 
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -18,11 +21,24 @@ export class ArticleService {
 
     constructor(private http: Http) {}
 
+
     // Return a list of articles from the back-end
-    getArticles(): Promise<Article[]> {
-        return this.http.get(this.articleUrl)
+    getArticles(limit: number, skip: number): Promise<any> {
+
+        let params = new URLSearchParams();
+        params.set('limit', limit.toString());
+        params.set('skip', skip.toString());
+
+        return this.http.get(this.articleUrl, {search:params})
             .toPromise()
-            .then(response => response.json().articles as Article[])
+            .then(
+                response => {
+                    return {                    
+                        articles: response.json().articles as Article[],
+                        articleCount: response.json().articleCount
+                    };
+                }
+            )
             .catch(this.handleError);
     }
     

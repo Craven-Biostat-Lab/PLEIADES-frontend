@@ -1,3 +1,10 @@
+/*
+This app module loads the root component and defines imports and
+services that are available across the entire project.  
+
+When you add a new component to this project, you have to add it to
+*/
+
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';

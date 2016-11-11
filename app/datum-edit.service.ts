@@ -1,9 +1,16 @@
 
-// This service handles information shared between the different components when editing datums.
+/*
+This service handles information shared between the article-datums component
+and article-text component when the user is editing hilights.  This includes
+the selected datum, the selected hilight mode (add or remove,) and the edited
+highlights that have been made by the user.
 
-// It would have been easier to do this using @Input, but that made the iframe reload every time the user selected a datum.  This is kind of a workaround.
-// See https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#bidirectional-service
+This service also handles the submission of the edited datums to the back-end.
 
+It would have been easier to do this using @Input, but that made the iframe 
+reload every time the user selected a datum.  This is kind of a workaround.
+See https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#bidirectional-service
+*/
 
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
@@ -98,7 +105,7 @@ export class DatumEditService {
             console.log(datums);
             */
         
-            // Make an HTTP PUT to the back-end
+            // Make an HTTP PUT request to the back-end
             this.http.put(
                 url, 
                 JSON.stringify({

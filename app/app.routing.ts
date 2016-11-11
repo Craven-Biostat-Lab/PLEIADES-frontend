@@ -1,3 +1,8 @@
+/*
+This file defines routes for the application, each URL route is
+mapped to a component.
+*/
+
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -6,12 +11,16 @@ import { ArticleDatumsComponent } from './article-datums.component';
 
 const appRoutes: Routes = [
   {
-    path: 'articlelist',
+    path: 'articlelist/:page',
     component: ArticleListComponent
   },
   {
+    path: 'articlelist',
+    redirectTo: '/articlelist/0',
+  },
+  {
     path: '',
-    redirectTo: '/articlelist',
+    redirectTo: '/articlelist/0',
     pathMatch: 'full'
   },
   {

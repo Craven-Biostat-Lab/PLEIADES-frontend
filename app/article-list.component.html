@@ -20,7 +20,20 @@ font-size: 100px;">
             </div>
             <div class="col-md-3 button-col">
                 <button class="btn btn-edit">Edit datums</button>
+                <div class="article-timestamp" *ngIf="article.lastUpdated">
+                    Last edited: <br>
+                    {{ formatTimestamp(article.lastUpdated) }}
+                </div>
             </div>
+        </div>
+
+        <div class="row" id="next-back-row">
+            <span *ngIf="page != 0" class="btn-lg btn-prev-page" (click)="gotoPrevPage()">&larr; Previous</span>
+            <span *ngIf="page < numPages-1" class="btn-lg btn-next-page" (click)="gotoNextPage()">Next &rarr;</span>
+        </div>
+
+        <div class="row" id="page-count-row">
+            Page <b>{{ page+1 }}</b> of <b>{{ numPages }}</b>
         </div>
     </div>
 </div>
