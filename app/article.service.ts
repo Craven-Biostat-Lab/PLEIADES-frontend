@@ -5,7 +5,7 @@ of articles, and retrieve info+datums for a single article.
 
 
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -23,8 +23,13 @@ export class ArticleService {
 
 
     // Return a list of articles from the back-end
-    getArticles(): Promise<Article[]> {
-        return this.http.get(this.articleUrl)
+    getArticles(limit: number, skip: number): Promise<Article[]> {
+
+        let params = new URLSearchParams();
+        params.set('limit', limit.toString());
+        params.set('skip', skip.toString());
+
+        return this.http.get(this.articleUrl, {search:params})
             .toPromise()
             .then(response => response.json().articles as Article[])
             .catch(this.handleError);

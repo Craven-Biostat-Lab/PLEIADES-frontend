@@ -8,6 +8,7 @@ Articles are retrieved from the back-end using the articles service.
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { OnInit } from '@angular/core';
+import { ActivatedRoute, Params }   from '@angular/router';
 
 import { Article } from './article';
 import { ArticleService } from './article.service';
@@ -24,19 +25,41 @@ export class ArticleListComponent implements OnInit {
     // The list of articles to display
     articles: Article[];
 
+    // The currently-shown page of results.
+    page: number;
 
-    constructor(private articleService: ArticleService, private router: Router) {}
+    // The number of articles to show on each page.
+    private articlesPerPage = 10;
+
+
+    constructor(
+        private articleService: ArticleService, 
+        private router: Router, 
+        private route: ActivatedRoute,
+    ) {}
+
 
     // Fetch articles from the back-end.
-    getArticles(): void {
-        this.articleService.getArticles().then(articles => this.articles = articles);
+    getArticles(page: number): void {
+
+        let limit: number = this.articlesPerPage;
+        let skip: number = page * this.articlesPerPage;
+
+        this.articleService.getArticles(limit, skip).then(articles => this.articles = articles);
     }
     
     
     // Load articles when the component is loaded.
     ngOnInit(): void {
-        this.getArticles();
+
+        
+        this.route.params.forEach((params: Params) => {
+            let page = params['page'];
+            this.getArticles(page);
+        });
+
         console.log(this.articles);
+        
     }
     
     

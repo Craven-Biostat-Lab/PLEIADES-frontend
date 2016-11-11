@@ -11,12 +11,16 @@ import { ArticleDatumsComponent } from './article-datums.component';
 
 const appRoutes: Routes = [
   {
-    path: 'articlelist',
+    path: 'articlelist/:page',
     component: ArticleListComponent
   },
   {
+    path: 'articlelist',
+    redirectTo: '/articlelist/0',
+  },
+  {
     path: '',
-    redirectTo: '/articlelist',
+    redirectTo: '/articlelist/0',
     pathMatch: 'full'
   },
   {
