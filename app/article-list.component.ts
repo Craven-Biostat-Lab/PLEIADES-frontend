@@ -54,14 +54,23 @@ export class ArticleListComponent implements OnInit {
 
         
         this.route.params.forEach((params: Params) => {
-            let page = params['page'];
-            this.getArticles(page);
+            this.page = +params['page'];
+            this.getArticles(this.page);
         });
 
         console.log(this.articles);
         
     }
     
+
+    gotoNextPage(): void {
+        this.router.navigate(['/articlelist', (this.page+1).toString()]);
+    }
+
+    gotoPrevPage(): void {
+        this.router.navigate(['/articlelist', (this.page-1).toString()]);
+    }
+
     
     // When the user clicks on an article, set the URL to the page to edit
     // the article's datums.
