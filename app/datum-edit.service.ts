@@ -89,7 +89,8 @@ export class DatumEditService {
     
     
     // Send the edited datums with highlights to the server, via an HTTP PUT with a JSON payload.
-    submitEdits(article: Article): void {
+    // Also takes a callback function, to call when the request has completed.
+    submitEdits(article: Article, callback: ()=>void): void {
     
         // Only submit if the user has made some edits.
         if (this.anyChanges()) {
@@ -117,7 +118,7 @@ export class DatumEditService {
                     }),
                 {headers: headers}
             ).toPromise()
-            .then(response => null); // don't do anything with the response (in a perfect world with infinite time, this should do some error handling.)
+            .then(response => callback()); // When we get a response, call the callback)
             
         }
     }

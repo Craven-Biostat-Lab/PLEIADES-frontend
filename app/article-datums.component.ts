@@ -97,7 +97,6 @@ export class ArticleDatumsComponent implements OnInit {
     
     
     submit(): void{
-        this.datumEditService.submitEdits(this.article);
-        this.location.back();
+        this.datumEditService.submitEdits(this.article, () => this.location.back());
     }
 }
