@@ -45,6 +45,9 @@ export class ArticleDatumsComponent implements OnInit {
     // Current hilight mode
     highlightMode: string = 'add';  // 'add' or 'remove'
     
+    // Whether or not the submit button has already been clicked
+    submitClicked = false;
+    
     constructor(
       private articleService: ArticleService,
       private route: ActivatedRoute,
@@ -97,6 +100,15 @@ export class ArticleDatumsComponent implements OnInit {
     
     
     submit(): void{
-        this.datumEditService.submitEdits(this.article, () => this.location.back());
+        this.submitClicked = true; // disable submit button
+        this.datumEditService.submitEdits(
+            this.article, 
+            () => {
+                // Call this function when the after we get a response from the server.
+                // Submit redirect the user back to the front page after a short delay.
+                // as a workaround for a concurrency bug with the timestamps.
+                setTimeout(() => this.location.back(), 500);
+            }
+        );
     }
 }

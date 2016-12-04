@@ -121,6 +121,9 @@ export class DatumEditService {
             .then(response => callback()); // When we get a response, call the callback)
             
         }
+        
+        // Call the callback even if the user didn't have any edits to submit
+        callback();
     }
     
 }

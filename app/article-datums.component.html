@@ -21,7 +21,9 @@
         <!-- submit and back buttons -->
         <div id="widgets-topright">
             <button type="button" class="btn btn-default" (click)="goBack()">&larr; Back</button>
-            <button class="btn btn-danger" (click)="submit()">Submit</button>
+            <button class="btn btn-danger btn" [class.disabled]="submitClicked" (click)="submit()">
+                {{ submitClicked ? "Submitting..." : "Submit" }}
+            </button>
         </div>
     </div>
 
