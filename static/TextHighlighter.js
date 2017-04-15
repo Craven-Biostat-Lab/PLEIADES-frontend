@@ -124,6 +124,27 @@
         });
     }
 
+    function sortSerializedByDepth(hlDesc) {
+        function compare(a, b) {
+            var len = Math.min(a.length, b.length);
+            var i = 0;
+
+            while (i < len) {
+                if (a[i] !== b[i]) {
+                    return a[i] - b[i];
+                } else {
+                    i++;
+                }
+            }
+
+            return a.length - b.length;
+        }
+
+        hlDesc.sort(function (a, b) {
+            return compare(a[2].split(':'), b[2].split(':'));
+        });
+    }
+
     /**
      * Groups given highlights by timestamp.
      * @param {Array} highlights
@@ -604,12 +625,46 @@
                     if (!haveSameColor(parent, hl)) {
 
                         if (!hl.nextSibling) {
-                            dom(hl).insertBefore(parentNext || parent);
+                            if (!parentNext) {
+                                dom(hl).insertAfter(parent);
+                            } else {
+                                dom(hl).insertBefore(parentNext);
+                            }
+                            //dom(hl).insertBefore(parentNext || parent);
                             again = true;
                         }
 
                         if (!hl.previousSibling) {
-                            dom(hl).insertAfter(parentPrev || parent);
+                            if (!parentPrev) {
+                                dom(hl).insertBefore(parent);
+                            } else {
+                                dom(hl).insertAfter(parentPrev);
+                            }
+                            //dom(hl).insertAfter(parentPrev || parent);
+                            again = true;
+                        }
+
+                        if (hl.previousSibling && hl.previousSibling.nodeType == 3 && hl.nextSibling && hl.nextSibling.nodeType == 3)
+                        {
+                            console.log("Both prev and next siblings are text nodes");
+                            var spanleft = document.createElement('span');
+                            spanleft.style.backgroundColor = parent.style.backgroundColor;
+                            spanleft.className = parent.className;
+                            var timestamp = parent.attributes[TIMESTAMP_ATTR].nodeValue;
+                            spanleft.setAttribute(TIMESTAMP_ATTR, timestamp);
+                            spanleft.setAttribute(DATA_ATTR, true);
+                            console.log("Span Left Sibling: ", spanleft.style.backgroundColor + ", " + spanleft.className + ", " + timestamp);
+
+                            var spanright = spanleft.cloneNode(true);
+                            console.log("Span Right Sibling: ", spanright.style.backgroundColor + ", " + spanright.className + ", " + timestamp);
+
+                            var spanprev = dom(hl.previousSibling).wrap(spanleft);
+                            var spannext = dom(hl.nextSibling).wrap(spanright);
+
+                            var nodes = Array.prototype.slice.call(parent.childNodes);                    
+                            nodes.forEach(function (node) {
+                                dom(node).insertBefore(node.parentNode);
+                            });
                             again = true;
                         }
 
@@ -819,6 +874,8 @@
             ]);
         });
 
+        sortSerializedByDepth(hlDescriptors);
+
         return JSON.stringify(hlDescriptors);
     };
 
@@ -882,7 +939,9 @@
             highlights.push(highlight);
         }
 
-        hlDescriptors.forEach(function (hlDescriptor) {
+        sortSerializedByDepth(hlDescriptors);
+
+        hlDescriptors.forEach(function (hlDescriptor, i) {
             try {
                 deserializationFn(hlDescriptor);
             } catch (e) {
