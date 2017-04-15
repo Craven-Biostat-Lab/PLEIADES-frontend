@@ -123,7 +123,9 @@ export class DatumEditService {
         }
         
         // Call the callback even if the user didn't have any edits to submit
-        callback();
+        else {
+            callback();
+        }
     }
     
 }
